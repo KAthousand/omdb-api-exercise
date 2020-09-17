@@ -11,14 +11,19 @@ button.addEventListener('click', async () => {
   let userInput = input.value;
   const response = await axios.get(`${BASE_URL}s=${userInput}`)
   console.log(response);
-  renderList(response.data.Search)
+  renderList(response.data.Search) // very important. Get the search array inside the data.
 })
 
-const movieDisplay = document.querySelector('.movie-list');
 
-const renderList = movies => {
-  removeMovies();
+const movieDisplay = document.querySelector('.movie-list');
+// get the section from the html
+
+const renderList = movies => { // call a function to loop through each movie the search calls up
+  removeMovies(); // 86 any movies from previous searches.
   movies.forEach(movie => {
+
+    // for each movie pulled in from the search, create an element to contain a title h3, a year p, a movie poster img.
+    // then append elements to div container, append those to movie list section from html.
 
     const movieContainer = document.createElement('div');
     movieContainer.className = 'movie-container'
@@ -41,18 +46,11 @@ const renderList = movies => {
   })
 }
 
+// write a function to clear the movies when you do another search.
+
 function removeMovies() {
   const removeDiv = document.querySelector('.movie-list')
   while (removeDiv.lastChild) {
     removeDiv.removeChild(removeDiv.lastChild)
   }
 }
-
-
-//////--------------------------------------
-  // console.log(response.data.Search)
-  // response.data.forEach((movie) => {
-  //   console.log(movie.search)
-  //   let img = document.createElement('img')
-  //   img.src = movie.poster
-  // })
